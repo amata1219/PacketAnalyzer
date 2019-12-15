@@ -20,7 +20,7 @@ public class PacketInjector {
 	public static void injectTo(Channel channel, PacketHandler handler){
 		Maybe.unit(channel)
 		.map(Channel::pipeline)
-		.filter(p -> p.get(IDENTIFIER) != null)
+		.filter(p -> p.get(IDENTIFIER) == null)
 		.apply(p -> p.addBefore("packet_handler", IDENTIFIER, handler));
 	}
 	

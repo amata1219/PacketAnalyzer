@@ -27,7 +27,8 @@ public class Main extends JavaPlugin implements Listener {
 	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event){
-		PacketInjector.applyTo(event.getPlayer(), PacketLogger.class);
+		System.out.println("onJoin");
+		PacketInjector.applyTo(event.getPlayer(), PacketAnalyzer.class);
 	}
 	
 	@EventHandler
