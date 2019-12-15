@@ -1,5 +1,7 @@
 package amata1219.packet.analyzer;
 
+import static amata1219.packet.analyzer.reflection.Reflection.*;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -10,23 +12,34 @@ import amata1219.packet.analyzer.object.EntityPlayer;
 import amata1219.packet.analyzer.object.NetworkManager;
 import io.netty.channel.Channel;
 
-import static amata1219.packet.analyzer.Reflection.*;
-
 public class PacketInjection {
 	
 	private static final String IDENTIFIER = "PacketAnalyzer";
-	private static final Method getHandle = getMethod(getOBCClass("CraftPlayer"), "getHandle");
-	private static final Field playerConnection = getField(getNMSClass("EntityPlayer"), "playerConnection");
-	private static final Class<?> PlayerConnection = getNMSClass("PlayerConnection");
-	private static final Field networkManager = getField(PlayerConnection, "networkManager");
-	private static final Field channel = getField(getNMSClass("NetworkManager"), "channel");
+	private static final Method getHandle = method(obcClass("CraftPlayer"), "getHandle");
+	private static final Field playerConnection = field(nmsClass("EntityPlayer"), "playerConnection");
+	private static final Field networkManager = field(nmsClass("PlayerConnection"), "networkManager");
+	private static final Field channel = field(nmsClass("NetworkManager"), "channel");
 	//private static final Field m = getField(NetworkManager, "m");
+	
+	public static void applyTo(Player player, Class<? extends PacketHandler> handler){
+		EntityPlayer entityPlayer = extractEntityPlayer(player);
+		NetworkManager networkManager = extractNetworkManager(entityPlayer);
+		Channel channel = extractChannel(networkManager);
+		injectTo(channel, (PacketHandler) newInstance(constructor(handler, Player.class), player));
+	}
 
 	public static void injectTo(Channel channel, PacketHandler handler){
 		Maybe.unit(channel)
 		.map(Channel::pipeline)
 		.filter(p -> p.get(IDENTIFIER) != null)
 		.apply(p -> p.addBefore("packet_handler", IDENTIFIER, handler));
+	}
+	
+	public static void unapplyTo(Player player){
+		EntityPlayer entityPlayer = extractEntityPlayer(player);
+		NetworkManager networkManager = extractNetworkManager(entityPlayer);
+		Channel channel = extractChannel(networkManager);
+		rejectFrom(channel);
 	}
 	
 	public static void rejectFrom(Channel channel){
