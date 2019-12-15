@@ -8,7 +8,7 @@ public class PacketAnalyzer extends PacketHandler {
 		super(player);
 		
 		registerOutAnalyzers(
-				
+			
 		);
 	}
 	

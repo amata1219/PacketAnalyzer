@@ -1,23 +1,38 @@
 package amata1219.packet.analyzer;
 
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Main extends JavaPlugin {
+public class Main extends JavaPlugin implements Listener {
 	
 	private static Main plugin;
+	
+	public static Main plugin(){
+		return plugin;
+	}
 	
 	@Override
 	public void onEnable(){
 		plugin = this;
+		
+		getServer().getPluginManager().registerEvents(this, this);
 	}
 	
 	@Override
 	public void onDisable(){
-		
 	}
 	
-	public static Main plugin(){
-		return plugin;
+	@EventHandler
+	public void onJoin(PlayerJoinEvent event){
+		PacketInjector.applyTo(event.getPlayer(), PacketLogger.class);
+	}
+	
+	@EventHandler
+	public void onQuit(PlayerQuitEvent event){
+		PacketInjector.unapplyTo(event.getPlayer());
 	}
 
 }
