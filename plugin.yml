@@ -1,0 +1,4 @@
+name: PacketAnalyzer
+main: amata1219.packet.analyzer.Main
+version: 1.0.0
+author: @amata1219
