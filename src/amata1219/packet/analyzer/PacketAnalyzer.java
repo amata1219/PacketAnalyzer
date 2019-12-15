@@ -1,23 +1,11 @@
 package amata1219.packet.analyzer;
 
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.entity.Player;
 
-public class PacketAnalyzer extends JavaPlugin {
-	
-	private static PacketAnalyzer plugin;
-	
-	@Override
-	public void onEnable(){
-		plugin = this;
-	}
-	
-	@Override
-	public void onDisable(){
-		
-	}
-	
-	public static PacketAnalyzer plugin(){
-		return plugin;
+public class PacketAnalyzer extends PacketHandler {
+
+	public PacketAnalyzer(Player player) {
+		super(player);
 	}
 
 }
