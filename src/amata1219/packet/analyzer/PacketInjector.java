@@ -12,7 +12,7 @@ import amata1219.packet.analyzer.object.EntityPlayer;
 import amata1219.packet.analyzer.object.NetworkManager;
 import io.netty.channel.Channel;
 
-public class PacketInjection {
+public class PacketInjector {
 	
 	private static final String IDENTIFIER = "PacketAnalyzer";
 	private static final Method getHandle = method(obcClass("CraftPlayer"), "getHandle");
