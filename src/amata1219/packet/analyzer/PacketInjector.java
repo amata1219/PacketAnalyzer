@@ -14,7 +14,7 @@ public class PacketInjector {
 	private static final String IDENTIFIER = "PacketInjector";
 	
 	public static void applyTo(Player player, Class<? extends PacketHandler> handler){
-		injectTo(extractEntityPlayer(player).playerConnection.networkManager.channel, (PacketHandler) newInstance(constructor(handler, Player.class), player));
+		injectTo(extractChannel(player), (PacketHandler) newInstance(constructor(handler, Player.class), player));
 	}
 
 	public static void injectTo(Channel channel, PacketHandler handler){
@@ -25,7 +25,7 @@ public class PacketInjector {
 	}
 	
 	public static void unapplyTo(Player player){
-		rejectFrom(extractEntityPlayer(player).playerConnection.networkManager.channel);
+		rejectFrom(extractChannel(player));
 	}
 	
 	public static void rejectFrom(Channel channel){
@@ -35,8 +35,16 @@ public class PacketInjector {
 		.apply(p -> p.remove(IDENTIFIER));
 	}
 	
+	public static boolean isInjectedTo(Player player){
+		return extractChannel(player).pipeline().get(IDENTIFIER) != null;
+	}
+	
 	public static EntityPlayer extractEntityPlayer(Player player){
 		return ((CraftPlayer) player).getHandle();
+	}
+	
+	public static Channel extractChannel(Player player){
+		return extractEntityPlayer(player).playerConnection.networkManager.channel;
 	}
 	
 }

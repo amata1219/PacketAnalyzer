@@ -1,5 +1,8 @@
 package amata1219.packet.analyzer;
 
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -18,11 +21,25 @@ public class Main extends JavaPlugin implements Listener {
 	public void onEnable(){
 		plugin = this;
 		
+		getCommand("analyze").setExecutor(this);
+		
 		getServer().getPluginManager().registerEvents(this, this);
 	}
 	
 	@Override
 	public void onDisable(){
+		
+	}
+	
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
+		if(!(command instanceof Player)) return true;
+		
+		Player player = (Player) sender;
+		if(PacketInjector.isInjectedTo(player)) PacketInjector.unapplyTo(player);
+		else PacketInjector.applyTo(player, PacketHandler.class);
+		
+		return true;
 	}
 	
 	@EventHandler
