@@ -37,7 +37,7 @@ public class Main extends JavaPlugin implements Listener {
 		
 		Player player = (Player) sender;
 		if(PacketInjector.isInjectedTo(player)) PacketInjector.unapplyTo(player);
-		else PacketInjector.applyTo(player, PacketHandler.class);
+		else PacketInjector.applyTo(player, PacketAnalyzer.class);
 		
 		return true;
 	}

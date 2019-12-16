@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 
 import org.bukkit.Bukkit;
 
-public class Reflection {
+public class Reflector {
 
 	public final static String VERSION = Bukkit.getServer().getClass().getPackage().getName().replaceFirst(".*(\\d+_\\d+_R\\d+).*", "$1");
 	public final static String NMS_PACKAGE_NAME = "net.minecraft.server.v" + VERSION;
@@ -87,7 +87,7 @@ public class Reflection {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <T> T getFieldValue(Field field, Object instance){
+	public static <T> T fieldValue(Field field, Object instance){
 		T value = null;
 		try {
 			value = (T) field.get(instance);

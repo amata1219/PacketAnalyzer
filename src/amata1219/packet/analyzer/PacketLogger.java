@@ -31,41 +31,41 @@ public class PacketLogger extends PacketHandler {
 	 * ------------------
 	 * 
 [03:04:12 INFO]: In -> PacketPlayInBlockPlace
-[03:04:12 INFO]: Out -> PacketPlayOutEntityMetadata  0
-[03:04:13 INFO]: Out -> PacketPlayOutEntityStatus    1
+[03:04:12 INFO]: 	Out -> PacketPlayOutEntityMetadata  0
+[03:04:13 INFO]: 	Out -> PacketPlayOutEntityStatus    1
 [03:04:13 INFO]: In -> PacketPlayInBlockPlace
-[03:04:13 INFO]: Out -> PacketPlayOutEntityEffect    2
-[03:04:13 INFO]: Out -> PacketPlayOutEntityMetadata  0
-[03:04:13 INFO]: Out -> PacketPlayOutEntityMetadata  0
+[03:04:13 INFO]: 	Out -> PacketPlayOutEntityEffect    2
+[03:04:13 INFO]: 	Out -> PacketPlayOutEntityMetadata  0
+[03:04:13 INFO]: 	Out -> PacketPlayOutEntityMetadata  0
 [03:04:14 INFO]: In -> PacketPlayInBlockDig
-[03:04:14 INFO]: Out -> PacketPlayOutEntityMetadata  0
+[03:04:14 INFO]: 	Out -> PacketPlayOutEntityMetadata  0
 		------------------------
 [03:04:21 INFO]: In -> PacketPlayInBlockPlace
-[03:04:21 INFO]: Out -> PacketPlayOutEntityMetadata  0
-[03:04:23 INFO]: Out -> PacketPlayOutEntityStatus    1
-[03:04:23 INFO]: Out -> PacketPlayOutEntityEffect    2
-[03:04:23 INFO]: Out -> PacketPlayOutEntityMetadata  0
+[03:04:21 INFO]: 	Out -> PacketPlayOutEntityMetadata  0
+[03:04:23 INFO]: 	Out -> PacketPlayOutEntityStatus    1
+[03:04:23 INFO]: 	Out -> PacketPlayOutEntityEffect    2
+[03:04:23 INFO]: 	Out -> PacketPlayOutEntityMetadata  0
 [03:04:23 INFO]: In -> PacketPlayInBlockPlace
-[03:04:23 INFO]: Out -> PacketPlayOutEntityMetadata  0
+[03:04:23 INFO]: 	Out -> PacketPlayOutEntityMetadata  0
 [03:04:23 INFO]: In -> PacketPlayInBlockDig
-[03:04:23 INFO]: Out -> PacketPlayOutEntityMetadata  0
+[03:04:23 INFO]: 	Out -> PacketPlayOutEntityMetadata  0
 		-----------------------
 [03:05:39 INFO]: In -> PacketPlayInBlockPlace
-[03:05:39 INFO]: Out -> PacketPlayOutEntityMetadata  0
-[03:05:40 INFO]: Out -> PacketPlayOutEntityStatus    1
-[03:05:40 INFO]: Out -> PacketPlayOutEntityEffect    2
-[03:05:40 INFO]: Out -> PacketPlayOutSetSlot
-[03:05:40 INFO]: Out -> PacketPlayOutEntityMetadata  0
+[03:05:39 INFO]: 	Out -> PacketPlayOutEntityMetadata  0
+[03:05:40 INFO]: 	Out -> PacketPlayOutEntityStatus    1
+[03:05:40 INFO]: 	Out -> PacketPlayOutEntityEffect    2
+[03:05:40 INFO]: 	Out -> PacketPlayOutSetSlot
+[03:05:40 INFO]: 	Out -> PacketPlayOutEntityMetadata  0
 		-----------------------
 
 remove:
-[03:05:52 INFO]: Out -> PacketPlayOutEntityStatus
-[03:05:52 INFO]: Out -> PacketPlayOutRemoveEntityEffect
-[03:05:52 INFO]: Out -> PacketPlayOutEntityMetadata
+[03:05:52 INFO]: 	Out -> PacketPlayOutEntityStatus
+[03:05:52 INFO]: 	Out -> PacketPlayOutRemoveEntityEffect
+[03:05:52 INFO]: 	Out -> PacketPlayOutEntityMetadata
 [03:05:52 INFO]: In -> PacketPlayInBlockPlace
-[03:05:52 INFO]: Out -> PacketPlayOutEntityMetadata
+[03:05:52 INFO]: 	Out -> PacketPlayOutEntityMetadata
 [03:05:52 INFO]: In -> PacketPlayInBlockDig
-[03:05:52 INFO]: Out -> PacketPlayOutEntityMetadata
+[03:05:52 INFO]: 	Out -> PacketPlayOutEntityMetadata
 
 	 */
 	
