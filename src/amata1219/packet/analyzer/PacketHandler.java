@@ -30,7 +30,10 @@ public abstract class PacketHandler extends ChannelDuplexHandler {
 	@Override
 	public void write(ChannelHandlerContext context, Object packet, ChannelPromise promise) throws Exception {
 		Maybe.unit(outAnalyzers.get(packet))
-		.apply(analyzer -> analyzer.analyze(packet));
+		.apply(analyzer -> {
+			println("Out > " + packet.getClass().getSimpleName());
+			analyzer.analyze(packet);
+		});
 		super.write(context, packet, promise);
 	}
 	
@@ -38,7 +41,10 @@ public abstract class PacketHandler extends ChannelDuplexHandler {
 	@Override
 	public void channelRead(ChannelHandlerContext context, Object packet) throws Exception {
 		Maybe.unit(inAnalyzers.get(packet))
-		.apply(analyzer -> analyzer.analyze(packet));
+		.apply(analyzer -> {
+			println("In > " + packet.getClass().getSimpleName());
+			analyzer.analyze(packet);
+		});
 		super.channelRead(context, packet);
 	}
 	
@@ -50,6 +56,10 @@ public abstract class PacketHandler extends ChannelDuplexHandler {
 	@SafeVarargs
 	protected final void registerInAnalyzers(Analyzer<? extends Packet<PacketListenerPlayIn>>... analyzers){
 		for(Analyzer<?> analyzer : analyzers) this.outAnalyzers.put(analyzer.target, analyzer);
+	}
+	
+	protected void println(Object x){
+		System.out.println(x);
 	}
 	
 }
