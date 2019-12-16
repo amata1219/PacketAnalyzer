@@ -29,9 +29,10 @@ public abstract class PacketHandler extends ChannelDuplexHandler {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void write(ChannelHandlerContext context, Object packet, ChannelPromise promise) throws Exception {
-		Maybe.unit(outAnalyzers.get(packet))
+		Class<?> clazz = packet.getClass();
+		Maybe.unit(outAnalyzers.get(clazz))
 		.apply(analyzer -> {
-			println("Out > " + packet.getClass().getSimpleName());
+			println("Out > " + clazz.getSimpleName());
 			analyzer.analyze(packet);
 		});
 		super.write(context, packet, promise);
@@ -40,9 +41,10 @@ public abstract class PacketHandler extends ChannelDuplexHandler {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void channelRead(ChannelHandlerContext context, Object packet) throws Exception {
-		Maybe.unit(inAnalyzers.get(packet))
+		Class<?> clazz = packet.getClass();
+		Maybe.unit(inAnalyzers.get(clazz))
 		.apply(analyzer -> {
-			println("In > " + packet.getClass().getSimpleName());
+			println("In > " + clazz.getSimpleName());
 			analyzer.analyze(packet);
 		});
 		super.channelRead(context, packet);

@@ -33,19 +33,19 @@ public class Main extends JavaPlugin implements Listener {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
-		if(!(command instanceof Player)) return true;
+		if(!(sender instanceof Player)) return true;
 		
 		Player player = (Player) sender;
 		if(PacketInjector.isInjectedTo(player)) PacketInjector.unapplyTo(player);
 		else PacketInjector.applyTo(player, PacketAnalyzer.class);
 		
+		player.sendMessage(PacketInjector.isInjectedTo(player) ? "パケットの解析を開始しました。" : "パケットの解析を終了しました。");
 		return true;
 	}
 	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event){
-		System.out.println("onJoin");
-		PacketInjector.applyTo(event.getPlayer(), PacketAnalyzer.class);
+		//PacketInjector.applyTo(event.getPlayer(), PacketAnalyzer.class);
 	}
 	
 	@EventHandler

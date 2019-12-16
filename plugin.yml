@@ -5,3 +5,7 @@ author: '@amata1219'
 
 commands:
   analyze:
+    description: Toggle packet analysis
+    usage: /<command>
+    permission: packet.analyzer.analyze
+    permission-message: You do not have <permission>
