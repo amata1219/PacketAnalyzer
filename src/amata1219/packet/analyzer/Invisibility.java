@@ -28,11 +28,11 @@ public class Invisibility {
 	private static final Either<String, Field<PacketPlayOutEntityMetadata, List<WatchableObject>>> b = Field.of(PacketPlayOutEntityMetadata.class, "b");
 	
 	public static void applyTo(Player player, Player target){
-		updateMetadata(player, target, (byte) 0x20);
+		updateMetadata(player, target, (byte) 32);
 	}
 	
 	public static void unapplyTo(Player player, Player target){
-		updateMetadata(player, target, (byte) 0x00);
+		updateMetadata(player, target, (byte) 0);
 	}
 	
 	private static void updateMetadata(Player player, Player target, byte mask){
