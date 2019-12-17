@@ -12,14 +12,14 @@ public class TargetedReflector<T> {
 	}
 	
 	public <U> U fieldValue(String name){
-		return Reflector.fieldValue(Reflector.field(instance.getClass(), name), instance);
+		return OldReflector.fieldValue(OldReflector.field(instance.getClass(), name), instance);
 	}
 	
 	@SuppressWarnings("rawtypes")
 	public <U> U invokeMethod(String name, Object... parameters){
 		Class[] parameterTypes = Arrays.stream(parameters).map(Object::getClass).toArray(Class[]::new);
-		Method method = Reflector.method(instance.getClass(), name, parameterTypes);
-		return Reflector.invokeMethod(method, name, parameters);
+		Method method = OldReflector.method(instance.getClass(), name, parameterTypes);
+		return OldReflector.invokeMethod(method, name, parameters);
 	}
 	
 }

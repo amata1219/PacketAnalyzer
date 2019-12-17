@@ -5,7 +5,7 @@ import amata1219.packet.analyzer.monad.Maybe;
 
 public class Field<T, U> {
 	
-	public static <T, U> Either<String, Field<T, U>> of(Class<T> clazz, Class<U> type, String name){
+	public static <T, U> Either<String, Field<T, U>> of(Class<T> clazz, String name){
 		try {
 			return Either.unit(clazz.getDeclaredField(name)).map(Field::new);
 		} catch (NoSuchFieldException | SecurityException e) {

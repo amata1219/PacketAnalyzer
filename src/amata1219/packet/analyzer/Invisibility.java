@@ -1,12 +1,13 @@
 package amata1219.packet.analyzer;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-import amata1219.packet.analyzer.reflection.Reflector;
+import amata1219.packet.analyzer.monad.Either;
+import amata1219.packet.analyzer.reflection.Field;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntityMetadata;
 import net.minecraft.server.v1_8_R3.DataWatcher.WatchableObject;
 
@@ -18,46 +19,30 @@ public class Invisibility {
 	 * BitMask Invisible: 0x20(16進数) = 32(10進数)
 	 */
 	
-	/*
-	 * case "apply": {
-			for(Player other : getServer().getOnlinePlayers()) if(!other.equals(player)) {
-				PacketPlayOutEntityMetadata packet = new PacketPlayOutEntityMetadata();
-				Field f_a = Reflector.field(packet.getClass(), "a");
-				Field f_b = Reflector.field(packet.getClass(), "b");
-				Reflector.setFieldValue(f_a, packet, PacketInjector.extractEntityPlayer(other).getId());
-				WatchableObject wo = new WatchableObject(0, 0, (byte) 32);
-				wo.a(false);
-				List<WatchableObject> b = Arrays.asList(wo);
-				Reflector.setFieldValue(f_b, packet, b);
-				PacketInjector.extractEntityPlayer(player).playerConnection.sendPacket(packet);
-			}
-			player.sendMessage("他プレイヤーを透明化しました。");
-			break;
-		} case "unapply": {
-			for(Player other : getServer().getOnlinePlayers()) if(!other.equals(player)){
-				PacketPlayOutEntityMetadata packet = new PacketPlayOutEntityMetadata();
-				Field f_a = Reflector.field(packet.getClass(), "a");
-				Field f_b = Reflector.field(packet.getClass(), "b");
-				Reflector.setFieldValue(f_a, packet, PacketInjector.extractEntityPlayer(other).getId());
-				WatchableObject wo = new WatchableObject(0, 0, (byte) 0);
-				wo.a(false);
-				List<WatchableObject> b = Arrays.asList(wo);
-				Reflector.setFieldValue(f_b, packet, b);
-				PacketInjector.extractEntityPlayer(player).playerConnection.sendPacket(packet);
-			}
-			player.sendMessage("他プレイヤーの透明化を解除しました。");
-			break;
-		}
-	 */
-	
-	private static final Field A = Reflector.field(PacketPlayOutEntityMetadata.class, "a");
-	private static final Field B = Reflector.field(PacketPlayOutEntityMetadata.class, "b");
+	private static final Either<String, Field<PacketPlayOutEntityMetadata, Integer>> a = Field.of(PacketPlayOutEntityMetadata.class, "a");
+	private static final Either<String, Field<PacketPlayOutEntityMetadata, List<WatchableObject>>> b = Field.of(PacketPlayOutEntityMetadata.class, "b");
 	
 	public static void applyTo(Player player, Player target){
-		PacketPlayOutEntityMetadata packet = new PacketPlayOutEntityMetadata();
+		updateMetadata(player, target, (byte) 0x20);
 	}
 	
 	public static void unapplyTo(Player player, Player target){
+		updateMetadata(player, target, (byte) 0x00);
+	}
+	
+	private static void updateMetadata(Player player, Player target, byte mask){
+		PacketPlayOutEntityMetadata packet = new PacketPlayOutEntityMetadata();
+		
+		a.onSuccess(f -> f.set(packet, player.getEntityId()))
+		.onFailure(System.out::println);
+		
+		WatchableObject metadata = new WatchableObject(0, 0, mask);
+		metadata.a(false);
+		
+		b.onSuccess(f -> f.set(packet, Arrays.asList(metadata)))
+		.onFailure(System.out::println);
+		
+		((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
 	}
 
 }

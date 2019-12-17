@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.bukkit.entity.Player;
 
-import amata1219.packet.analyzer.reflection.Reflector;
+import amata1219.packet.analyzer.reflection.OldReflector;
 import net.minecraft.server.v1_8_R3.DataWatcher.WatchableObject;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntityEffect;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntityMetadata;
@@ -271,23 +271,23 @@ public class PacketAnalyzer extends PacketHandler {
 				Class<WatchableObject> clazz = WatchableObject.class;
 				println("Member > WatchableObject");
 				
-				Field f_a = Reflector.field(clazz, "a");
-				Field f_b = Reflector.field(clazz, "b");
-				Field f_c = Reflector.field(clazz, "c");
-				Field f_d = Reflector.field(clazz, "d");
+				Field f_a = OldReflector.field(clazz, "a");
+				Field f_b = OldReflector.field(clazz, "b");
+				Field f_c = OldReflector.field(clazz, "c");
+				Field f_d = OldReflector.field(clazz, "d");
 				
 				for(WatchableObject w : b){
-					int w_a = Reflector.fieldValue(f_a, w);
+					int w_a = OldReflector.fieldValue(f_a, w);
 					println("a -> " + w_a);
 					
-					int w_b = Reflector.fieldValue(f_b, w);
+					int w_b = OldReflector.fieldValue(f_b, w);
 					println("b -> " + w_b);
 					
-					Object w_c = Reflector.fieldValue(f_c, w);
+					Object w_c = OldReflector.fieldValue(f_c, w);
 					println("c -> " + w_c);
 					println("c.class_name -> " + w_c.getClass().getSimpleName());
 					
-					boolean w_d = Reflector.fieldValue(f_d, w);
+					boolean w_d = OldReflector.fieldValue(f_d, w);
 					println("d -> " + w_d);
 				}
 			}),
