@@ -18,6 +18,10 @@ public class Invisibility {
 	 * 
 	 * BitMask Invisible: 0x20(16進数) = 32(10進数)
 	 * 
+	 * 解除されるタイミング
+	 * ・スニーク時
+	 * ・飲食開始時
+	 * 
 	 */
 	
 	private static final Either<String, Field<PacketPlayOutEntityMetadata, Integer>> a = Field.of(PacketPlayOutEntityMetadata.class, "a");
@@ -34,7 +38,7 @@ public class Invisibility {
 	private static void updateMetadata(Player player, Player target, byte mask){
 		PacketPlayOutEntityMetadata packet = new PacketPlayOutEntityMetadata();
 		
-		a.onSuccess(f -> f.set(packet, player.getEntityId()))
+		a.onSuccess(f -> f.set(packet, target.getEntityId()))
 		.onFailure(System.out::println);
 		
 		WatchableObject metadata = new WatchableObject(0, 0, mask);
