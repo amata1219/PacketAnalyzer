@@ -14,6 +14,86 @@ import net.minecraft.server.v1_8_R3.PacketPlayOutEntityStatus;
 public class PacketAnalyzer extends PacketHandler {
 	
 	/*
+	 * 他プレイヤーがeffectコマンドを実行した時に受信したパケット
+	 * 
+	 * 透明化:
+	 * [17:11:04 INFO]: Out > PacketPlayOutEntityMetadata
+[17:11:04 INFO]: a -> 77 @ entity id
+[17:11:04 INFO]: b.size() -> 2
+[17:11:04 INFO]: Member > WatchableObject
+[17:11:04 INFO]: a -> 2
+[17:11:04 INFO]: b -> 7
+[17:11:04 INFO]: c -> 8356754 @ particle color
+[17:11:04 INFO]: d -> false
+[17:11:04 INFO]: a -> 0
+[17:11:04 INFO]: b -> 0
+[17:11:04 INFO]: c -> 32
+[17:11:04 INFO]: d -> false
+
+[17:21:35 INFO]: Out > PacketPlayOutEntityMetadata
+[17:21:35 INFO]: a -> 77
+[17:21:35 INFO]: b.size() -> 2
+[17:21:35 INFO]: Member > WatchableObject
+[17:21:35 INFO]: a -> 2
+[17:21:35 INFO]: b -> 7
+[17:21:35 INFO]: c -> 8356754
+[17:21:35 INFO]: d -> false
+[17:21:35 INFO]: a -> 0
+[17:21:35 INFO]: b -> 0
+[17:21:35 INFO]: c -> 32
+[17:21:35 INFO]: d -> false
+
+
+		再生:
+		[17:12:46 INFO]: Out > PacketPlayOutEntityMetadata
+[17:12:46 INFO]: a -> 77 @ entity id
+[17:12:46 INFO]: b.size() -> 1
+[17:12:46 INFO]: Member > WatchableObject
+[17:12:46 INFO]: a -> 2
+[17:12:46 INFO]: b -> 7
+[17:12:46 INFO]: c -> 13458603 @ particle color
+[17:12:46 INFO]: d -> false
+
+		盲目:
+		[17:16:47 INFO]: Out > PacketPlayOutEntityMetadata
+[17:16:47 INFO]: a -> 77
+[17:16:47 INFO]: b.size() -> 1
+[17:16:47 INFO]: Member > WatchableObject
+[17:16:47 INFO]: a -> 2
+[17:16:47 INFO]: b -> 7
+[17:16:47 INFO]: c -> 2039587 @ particle color
+[17:16:47 INFO]: d -> false
+
+		速度上昇:
+		[17:22:08 INFO]: Out > PacketPlayOutEntityMetadata
+[17:22:08 INFO]: a -> 77
+[17:22:08 INFO]: b.size() -> 1
+[17:22:08 INFO]: Member > WatchableObject
+[17:22:08 INFO]: a -> 2
+[17:22:08 INFO]: b -> 7
+[17:22:08 INFO]: c -> 8171462
+[17:22:08 INFO]: d -> false
+
+
+		effect clear
+		[17:24:16 INFO]: Out > PacketPlayOutEntityMetadata
+[17:24:16 INFO]: a -> 77
+[17:24:16 INFO]: b.size() -> 2
+[17:24:16 INFO]: Member > WatchableObject
+[17:24:16 INFO]: a -> 2
+[17:24:16 INFO]: b -> 7
+[17:24:16 INFO]: c -> 0
+[17:24:16 INFO]: d -> false
+[17:24:16 INFO]: a -> 0
+[17:24:16 INFO]: b -> 0
+[17:24:16 INFO]: c -> 0
+[17:24:16 INFO]: d -> false
+		
+
+	 *
+	 */
+	
+	/*
 	 * PacketPlayOutEntityStatus
 	 * 
 	 * 
@@ -169,16 +249,24 @@ public class PacketAnalyzer extends PacketHandler {
 				Class<WatchableObject> clazz = WatchableObject.class;
 				println("Member > WatchableObject");
 				
-				Field w_a = Reflector.field(clazz, "a");
-				Field w_b = Reflector.field(clazz, "b");
-				Field w_c = Reflector.field(clazz, "c");
-				Field w_d = Reflector.field(clazz, "d");
+				Field f_a = Reflector.field(clazz, "a");
+				Field f_b = Reflector.field(clazz, "b");
+				Field f_c = Reflector.field(clazz, "c");
+				Field f_d = Reflector.field(clazz, "d");
 				
 				for(WatchableObject w : b){
-					println("a -> " + Reflector.fieldValue(w_a, w));
-					println("b -> " + Reflector.fieldValue(w_b, w));
-					println("c -> " + Reflector.fieldValue(w_c, w));
-					println("d -> " + Reflector.fieldValue(w_d, w));
+					int w_a = Reflector.fieldValue(f_a, w);
+					println("a -> " + w_a);
+					
+					int w_b = Reflector.fieldValue(f_b, w);
+					println("b -> " + w_b);
+					
+					Object w_c = Reflector.fieldValue(f_c, w);
+					println("c -> " + w_c);
+					println("c.class_name -> " + w_c.getClass().getSimpleName());
+					
+					boolean w_d = Reflector.fieldValue(f_d, w);
+					println("d -> " + w_d);
 				}
 			}),
 			Analyzer.of(PacketPlayOutEntityStatus.class, (i, r) -> {

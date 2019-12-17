@@ -52,40 +52,38 @@ public class Main extends JavaPlugin implements Listener {
 			player.sendMessage(PacketInjector.isInjectedTo(player) ? "パケットの解析を開始しました。" : "パケットの解析を終了しました。");
 			break;
 		} case "apply": {
-			ByteBuf buffer = Unpooled.buffer();
-			buffer.writeInt(PacketInjector.extractEntityPlayer(player).getId());
-			buffer.writeByte(14);
-			buffer.writeByte(0);
-			buffer.writeInt(1728000);
-			buffer.writeByte(2);
-			PacketDataSerializer data = new PacketDataSerializer(buffer);
-			PacketPlayOutEntityEffect packet = new PacketPlayOutEntityEffect();
-			try {
-				packet.a(data);
-			} catch (IOException e) {
-				e.printStackTrace();
+			for(Player other : getServer().getOnlinePlayers()) if(!other.equals(player)) {
+				ByteBuf buffer = Unpooled.buffer();
+				buffer.writeInt(PacketInjector.extractEntityPlayer(other).getId());
+				buffer.writeByte(14);
+				buffer.writeByte(0);
+				buffer.writeInt(1728000);
+				buffer.writeByte(1);
+				PacketDataSerializer data = new PacketDataSerializer(buffer);
+				PacketPlayOutEntityEffect packet = new PacketPlayOutEntityEffect();
+				try {
+					packet.a(data);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				PacketInjector.extractEntityPlayer(player).playerConnection.sendPacket(packet);
 			}
-			
-			for(Player other : getServer().getOnlinePlayers()) if(!other.equals(player))
-				PacketInjector.extractEntityPlayer(other).playerConnection.sendPacket(packet);
-			
 			player.sendMessage("他プレイヤーを透明化しました。");
 			break;
 		} case "unapply": {
-			ByteBuf buffer = Unpooled.buffer();
-			buffer.writeInt(PacketInjector.extractEntityPlayer(player).getId());
-			buffer.writeByte(14);
-			PacketDataSerializer data = new PacketDataSerializer(buffer);
-			PacketPlayOutRemoveEntityEffect packet = new PacketPlayOutRemoveEntityEffect();
-			try {
-				packet.a(data);
-			} catch (IOException e) {
-				e.printStackTrace();
+			for(Player other : getServer().getOnlinePlayers()) if(!other.equals(player)){
+				ByteBuf buffer = Unpooled.buffer();
+				buffer.writeInt(PacketInjector.extractEntityPlayer(other).getId());
+				buffer.writeByte(14);
+				PacketDataSerializer data = new PacketDataSerializer(buffer);
+				PacketPlayOutRemoveEntityEffect packet = new PacketPlayOutRemoveEntityEffect();
+				try {
+					packet.a(data);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				PacketInjector.extractEntityPlayer(player).playerConnection.sendPacket(packet);
 			}
-			
-			for(Player other : getServer().getOnlinePlayers()) if(!other.equals(player))
-				PacketInjector.extractEntityPlayer(other).playerConnection.sendPacket(packet);
-			
 			player.sendMessage("他プレイヤーの透明化を解除しました。");
 			break;
 		} default:
