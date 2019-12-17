@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import amata1219.packet.analyzer.reflection.OldReflector;
+import amata1219.packet.analyzer.reflection.Reflector;
 import net.minecraft.server.v1_8_R3.DataWatcher.WatchableObject;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntityMetadata;
 
@@ -54,13 +54,13 @@ public class Main extends JavaPlugin implements Listener {
 		} case "apply": {
 			for(Player other : getServer().getOnlinePlayers()) if(!other.equals(player)) {
 				PacketPlayOutEntityMetadata packet = new PacketPlayOutEntityMetadata();
-				Field f_a = OldReflector.field(packet.getClass(), "a");
-				Field f_b = OldReflector.field(packet.getClass(), "b");
-				OldReflector.setFieldValue(f_a, packet, PacketInjector.extractEntityPlayer(other).getId());
+				Field f_a = Reflector.field(packet.getClass(), "a");
+				Field f_b = Reflector.field(packet.getClass(), "b");
+				Reflector.setFieldValue(f_a, packet, PacketInjector.extractEntityPlayer(other).getId());
 				WatchableObject wo = new WatchableObject(0, 0, (byte) 32);
 				wo.a(false);
 				List<WatchableObject> b = Arrays.asList(wo);
-				OldReflector.setFieldValue(f_b, packet, b);
+				Reflector.setFieldValue(f_b, packet, b);
 				PacketInjector.extractEntityPlayer(player).playerConnection.sendPacket(packet);
 			}
 			player.sendMessage("他プレイヤーを透明化しました。");
@@ -68,13 +68,13 @@ public class Main extends JavaPlugin implements Listener {
 		} case "unapply": {
 			for(Player other : getServer().getOnlinePlayers()) if(!other.equals(player)){
 				PacketPlayOutEntityMetadata packet = new PacketPlayOutEntityMetadata();
-				Field f_a = OldReflector.field(packet.getClass(), "a");
-				Field f_b = OldReflector.field(packet.getClass(), "b");
-				OldReflector.setFieldValue(f_a, packet, PacketInjector.extractEntityPlayer(other).getId());
+				Field f_a = Reflector.field(packet.getClass(), "a");
+				Field f_b = Reflector.field(packet.getClass(), "b");
+				Reflector.setFieldValue(f_a, packet, PacketInjector.extractEntityPlayer(other).getId());
 				WatchableObject wo = new WatchableObject(0, 0, (byte) 0);
 				wo.a(false);
 				List<WatchableObject> b = Arrays.asList(wo);
-				OldReflector.setFieldValue(f_b, packet, b);
+				Reflector.setFieldValue(f_b, packet, b);
 				PacketInjector.extractEntityPlayer(player).playerConnection.sendPacket(packet);
 			}
 			player.sendMessage("他プレイヤーの透明化を解除しました。");

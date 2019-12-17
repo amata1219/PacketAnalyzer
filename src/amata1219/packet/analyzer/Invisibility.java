@@ -17,6 +17,7 @@ public class Invisibility {
 	 * https://wiki.vg/Entity_metadata#Entity
 	 * 
 	 * BitMask Invisible: 0x20(16進数) = 32(10進数)
+	 * 
 	 */
 	
 	private static final Either<String, Field<PacketPlayOutEntityMetadata, Integer>> a = Field.of(PacketPlayOutEntityMetadata.class, "a");

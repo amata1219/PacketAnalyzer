@@ -13,6 +13,10 @@ public class Field<T, U> {
 		}
 	}
 	
+	public static <T, U> Either<String, Field<T, U>> of(Class<T> clazz, Class<U> type, String name){
+		return of(clazz, name);
+	}
+	
 	private final java.lang.reflect.Field field;
 	
 	private Field(java.lang.reflect.Field field){
