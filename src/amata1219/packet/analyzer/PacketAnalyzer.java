@@ -43,6 +43,17 @@ public class PacketAnalyzer extends PacketHandler {
 [17:21:35 INFO]: c -> 32
 [17:21:35 INFO]: d -> false
 
+		パーティクル非表示:
+		[17:44:57 INFO]: Out > PacketPlayOutEntityMetadata
+[17:44:57 INFO]: a -> 77
+[17:44:57 INFO]: b.size() -> 1
+[17:44:57 INFO]: Member > WatchableObject
+[17:44:57 INFO]: a -> 0
+[17:44:57 INFO]: b -> 0
+[17:44:57 INFO]: c -> 32
+[17:44:57 INFO]: c.class_name -> Byte
+[17:44:57 INFO]: d -> false
+
 
 		再生:
 		[17:12:46 INFO]: Out > PacketPlayOutEntityMetadata
@@ -76,6 +87,7 @@ public class PacketAnalyzer extends PacketHandler {
 
 
 		effect clear
+		透明化:
 		[17:24:16 INFO]: Out > PacketPlayOutEntityMetadata
 [17:24:16 INFO]: a -> 77
 [17:24:16 INFO]: b.size() -> 2
@@ -88,7 +100,17 @@ public class PacketAnalyzer extends PacketHandler {
 [17:24:16 INFO]: b -> 0
 [17:24:16 INFO]: c -> 0
 [17:24:16 INFO]: d -> false
-		
+
+		パーティクル非表示
+		[17:45:08 INFO]: Out > PacketPlayOutEntityMetadata
+[17:45:08 INFO]: a -> 77
+[17:45:08 INFO]: b.size() -> 1
+[17:45:08 INFO]: Member > WatchableObject
+[17:45:08 INFO]: a -> 0
+[17:45:08 INFO]: b -> 0
+[17:45:08 INFO]: c -> 0
+[17:45:08 INFO]: c.class_name -> Byte
+[17:45:08 INFO]: d -> false
 
 	 *
 	 */
