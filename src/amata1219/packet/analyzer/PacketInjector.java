@@ -2,12 +2,12 @@ package amata1219.packet.analyzer;
 
 import static amata1219.packet.analyzer.reflection.Reflector.*;
 
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import amata1219.packet.analyzer.monad.Maybe;
 import io.netty.channel.Channel;
-import net.minecraft.server.v1_8_R3.EntityPlayer;
+import net.minecraft.server.v1_14_R1.EntityPlayer;
 
 public class PacketInjector {
 	

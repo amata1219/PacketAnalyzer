@@ -1,6 +1,6 @@
 package amata1219.packet.analyzer;
 
-import java.util.Arrays;
+/*import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import amata1219.packet.analyzer.monad.Either;
 import amata1219.packet.analyzer.reflection.Field;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntityMetadata;
-import net.minecraft.server.v1_8_R3.DataWatcher.WatchableObject;
+import net.minecraft.server.v1_8_R3.DataWatcher.WatchableObject;*/
 
 public class Invisibility {
 	
@@ -24,7 +24,7 @@ public class Invisibility {
 	 * 
 	 */
 	
-	private static final Either<String, Field<PacketPlayOutEntityMetadata, Integer>> a = Field.of(PacketPlayOutEntityMetadata.class, "a");
+	/*private static final Either<String, Field<PacketPlayOutEntityMetadata, Integer>> a = Field.of(PacketPlayOutEntityMetadata.class, "a");
 	private static final Either<String, Field<PacketPlayOutEntityMetadata, List<WatchableObject>>> b = Field.of(PacketPlayOutEntityMetadata.class, "b");
 	
 	public static void applyTo(Player player, Player target){
@@ -48,6 +48,6 @@ public class Invisibility {
 		.onFailure(System.out::println);
 		
 		((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
-	}
+	}*/
 
 }

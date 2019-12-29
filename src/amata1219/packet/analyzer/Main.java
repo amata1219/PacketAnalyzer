@@ -43,7 +43,12 @@ public class Main extends JavaPlugin implements Listener {
 			else PacketInjector.applyTo(player, PacketAnalyzer.class);
 			player.sendMessage(PacketInjector.isInjectedTo(player) ? "パケットの解析を開始しました。" : "パケットの解析を終了しました。");
 			break;
-		} case "apply": {
+		} case "log": {
+			if(PacketInjector.isInjectedTo(player)) PacketInjector.unapplyTo(player);
+			else PacketInjector.applyTo(player, PacketLogger.class);
+			player.sendMessage(PacketInjector.isInjectedTo(player) ? "パケットの記録を開始しました。" : "パケットの記録を終了しました。");
+			break;
+		/*} case "apply": {
 			for(Player other : getServer().getOnlinePlayers()) if(!other.equals(player)) {
 				Invisibility.applyTo(player, other);
 			}
@@ -54,7 +59,7 @@ public class Main extends JavaPlugin implements Listener {
 				Invisibility.unapplyTo(player, other);
 			}
 			player.sendMessage("他プレイヤーの透明化を解除しました。");
-			break;
+			break;*/
 		} default:
 			break;
 		}
@@ -64,7 +69,7 @@ public class Main extends JavaPlugin implements Listener {
 	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event){
-		//PacketInjector.applyTo(event.getPlayer(), PacketAnalyzer.class);
+		PacketInjector.applyTo(event.getPlayer(), PacketAnalyzer.class);
 	}
 	
 	@EventHandler

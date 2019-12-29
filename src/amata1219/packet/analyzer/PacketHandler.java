@@ -8,9 +8,9 @@ import amata1219.packet.analyzer.monad.Maybe;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
-import net.minecraft.server.v1_8_R3.Packet;
-import net.minecraft.server.v1_8_R3.PacketListenerPlayIn;
-import net.minecraft.server.v1_8_R3.PacketListenerPlayOut;
+import net.minecraft.server.v1_14_R1.Packet;
+import net.minecraft.server.v1_14_R1.PacketListenerPlayIn;
+import net.minecraft.server.v1_14_R1.PacketListenerPlayOut;
 
 public abstract class PacketHandler extends ChannelDuplexHandler {
 
@@ -57,7 +57,7 @@ public abstract class PacketHandler extends ChannelDuplexHandler {
 	
 	@SafeVarargs
 	protected final void registerInAnalyzers(Analyzer<? extends Packet<PacketListenerPlayIn>>... analyzers){
-		for(Analyzer<?> analyzer : analyzers) this.outAnalyzers.put(analyzer.target, analyzer);
+		for(Analyzer<?> analyzer : analyzers) this.inAnalyzers.put(analyzer.target, analyzer);
 	}
 	
 	protected void println(Object x){
